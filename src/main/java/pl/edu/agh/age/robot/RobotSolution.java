@@ -3,7 +3,6 @@ package pl.edu.agh.age.robot;
 import java.util.List;
 import java.util.Map;
 
-import javaslang.collection.Array;
 import pl.edu.agh.age.compute.stream.emas.solution.Solution;
 
 public class RobotSolution implements Solution<Map<String,List<String>>> {
@@ -23,7 +22,6 @@ public class RobotSolution implements Solution<Map<String,List<String>>> {
 		return fitness;
 	}
 
-	@Override
 	public RobotSolution updateFitness(double fitness) {
 		this.fitness = fitness;
 		return this;
@@ -46,5 +44,11 @@ public class RobotSolution implements Solution<Map<String,List<String>>> {
 			sb.append("*");
 		}
 		return sb.toString();
+	}
+
+	@Override
+	public Solution<Map<String, List<String>>> withFitness(double fitness) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

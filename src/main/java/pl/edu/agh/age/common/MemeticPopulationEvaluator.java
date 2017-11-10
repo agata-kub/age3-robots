@@ -2,15 +2,14 @@ package pl.edu.agh.age.common;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
+
+import io.vavr.collection.Seq;
 import pl.edu.agh.age.compute.stream.emas.EmasAgent;
 import pl.edu.agh.age.compute.stream.emas.PopulationEvaluator;
 import pl.edu.agh.age.compute.stream.emas.reproduction.improvement.Improvement;
 import pl.edu.agh.age.compute.stream.emas.solution.Solution;
 import pl.edu.agh.age.compute.stream.problem.Evaluator;
-
-import java.util.Optional;
-
-import javaslang.collection.Seq;
 
 public class MemeticPopulationEvaluator<S extends Solution<?>> implements PopulationEvaluator<EmasAgent> {
 
@@ -24,12 +23,14 @@ public class MemeticPopulationEvaluator<S extends Solution<?>> implements Popula
 	}
 
 	@SuppressWarnings("unchecked")
-	@Override public Seq<EmasAgent> evaluate(final Seq<EmasAgent> population) {
+	@Override
+	public Seq<EmasAgent> evaluate(final Seq<EmasAgent> population) {
 		return population.map(agent -> {
 			final S solution = (S)agent.solution;
-			solution.updateFitness(evaluator.evaluate(solution));
+			solution.withFitness(evaluator.evaluate(solution));
 			return EmasAgent.create(agent.energy, improvement != null ? improvement.improve(solution) : solution);
 		});
 	}
+
 
 }

@@ -7,8 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import com.hazelcast.internal.util.ThreadLocalRandom;
+import java.util.concurrent.ThreadLocalRandom;
 
 import pl.edu.agh.age.compute.stream.emas.reproduction.mutation.Mutation;
 import pl.edu.agh.miss.intruders.graph.Graph;

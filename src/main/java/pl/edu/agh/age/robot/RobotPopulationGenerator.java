@@ -6,7 +6,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javaslang.collection.Stream;
+import io.vavr.collection.Stream;
 import pl.edu.agh.age.compute.stream.emas.EmasAgent;
 import pl.edu.agh.age.compute.stream.emas.PopulationGenerator;
 

@@ -57,7 +57,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <bean id="migrationParameters" class="pl.edu.agh.age.compute.stream.emas.migration.MigrationParameters">
         <constructor-arg name="stepInterval" value="${robot.migration.steps-interval}" />
-        <constructor-arg name="migrationProbability" value="${robot.migration.probability}" />
+        <constructor-arg name="partToMigrate" value="${robot.migration.part-to-migrate}" />
+        <constructor-arg name="migrationStrategy" value="${robot.migration.strategy}" />
     </bean>
 
     <bean id="topology" class="${robot.migration.topology}" />
@@ -98,7 +99,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <constructor-arg name="minimumAgentEnergy" ref="dieEnergyTreshold"/>
     </bean>
 
-    <bean id="fightAgentsComparator" class="pl.edu.agh.age.compute.stream.emas.EmasAgentComparators"
+    <bean id="fightAgentComparator" class="pl.edu.agh.age.compute.stream.emas.EmasAgentComparators"
           factory-method="lowerFitnessProbabilistic">
     </bean>
 
@@ -120,13 +121,13 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="loggingService" class="pl.edu.agh.age.compute.stream.logging.DefaultLoggingService"/>
 
     <!-- Define EMAS Agents comparator -->
-    <bean id="agentsComparator" class="pl.edu.agh.age.compute.stream.emas.EmasAgentComparators"
+    <bean id="agentComparator" class="pl.edu.agh.age.compute.stream.emas.EmasAgentComparators"
           factory-method="lowerFitness">
     </bean>
 
     <!-- Define EMAS Agents registry -->
     <bean id="agentsRegistry" class="pl.edu.agh.age.compute.stream.emas.EmasBestAgentsRegistry">
-        <constructor-arg name="agentsComparator" ref="agentsComparator"/>
+        <constructor-arg name="agentComparator" ref="agentComparator"/>
     </bean>
 
     <!-- Solution Factory -->
@@ -159,7 +160,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
           factory-method="simpleMerge"/>
 
     <!-- Define a step function for workplaces -->
-    <bean id="step" class="pl.edu.agh.age.common.EmasStep"/>
+    <bean id="step" class="pl.edu.agh.age.compute.stream.emas.EmasStep" scope="prototype"/>
 
     <!-- Define an after-step analyzer -->
     <bean id="population-analyzer" class="pl.edu.agh.age.compute.stream.example.SampleAfterStepActionWithLogging"/>
@@ -168,9 +169,6 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="workplace-generator" class="pl.edu.agh.age.compute.stream.configuration.WorkplaceConfigurationGenerator">
         <constructor-arg name="workplacesCount" ref="workplacesCount" />
         <constructor-arg name="generator" ref="agents-generator"/>
-        <constructor-arg name="beforeStep" ref="before-step-analyzer" />
-        <constructor-arg name="step" ref="step"/>
-        <constructor-arg name="afterStep" ref="population-analyzer"/>
     </bean>
 
     <!-- Initialize configuration -->

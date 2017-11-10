@@ -5,8 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import com.hazelcast.internal.util.ThreadLocalRandom;
+import java.util.concurrent.ThreadLocalRandom;
 
 import pl.edu.agh.age.compute.stream.emas.reproduction.recombination.Recombination;
 

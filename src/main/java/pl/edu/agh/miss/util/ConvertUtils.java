@@ -30,7 +30,7 @@ public final class ConvertUtils {
 	}
 	
 	public static Building getBuilding() {
-		File file = new File(Main.class.getClassLoader().getResource("roson/simple_cases/sample_3.roson").getFile());
+		File file = new File(Main.class.getClassLoader().getResource("roson/building1.roson").getFile());
 		try {
 			Converter converter = new Converter(IOService.importFromJson(file));
 			Building building = converter.rosonToSimulation();
