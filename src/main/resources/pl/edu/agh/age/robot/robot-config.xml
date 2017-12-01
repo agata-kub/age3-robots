@@ -30,7 +30,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <!-- ******************* PROBLEM DEFINITION ******************* -->
 
-    <bean id="problemDefinition" class="pl.edu.agh.age.robot.RobotProblem">
+    <bean id="problemDefinition" class="pl.edu.agh.age.robot.evol.RobotProblem">
     	<constructor-arg name="path" value="${robot.problem.source-path}" />
     </bean>
 
@@ -74,12 +74,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
         <constructor-arg value="${robot.emas.die-energy-threshold}" />
     </bean>
 
-    <bean id="recombination" class="pl.edu.agh.age.robot.RobotRecombination" />
+    <bean id="recombination" class="pl.edu.agh.age.robot.evol.RobotRecombination" />
 
-    <bean id="mutation" class="pl.edu.agh.age.robot.RobotMutation">
+    <bean id="mutation" class="pl.edu.agh.age.robot.evol.RobotMutation">
     </bean>
     
-    <bean id="buildingProvider" class="pl.edu.agh.age.common.BuildingProvider">
+    <bean id="buildingProvider" class="pl.edu.agh.age.robot.common.BuildingProvider">
     	<constructor-arg value="${robot.problem.source-path}" />
     </bean>
 
@@ -136,12 +136,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     </bean>
 
     <!-- Solution Factory -->
-    <bean id="solutionFactory" class="pl.edu.agh.age.robot.RobotFactory">
+    <bean id="solutionFactory" class="pl.edu.agh.age.robot.evol.RobotFactory">
             <constructor-arg name="evaluatorCounter" ref="evaluatorCounter"/>
     </bean>
 
     <!-- Define agents generator for each workplace -->
-    <bean id="agents-generator" class="pl.edu.agh.age.robot.RobotPopulationGenerator">
+    <bean id="agents-generator" class="pl.edu.agh.age.robot.evol.RobotPopulationGenerator">
         <constructor-arg name="solutionFactory" ref="solutionFactory"/>
         <constructor-arg name="agentsCount" ref="agentsCount"/>
         <constructor-arg name="initialAgentEnergy" ref="initialAgentEnergy"/>
@@ -153,7 +153,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     </bean>
 
     <!-- Evaluator -->
-    <bean id="evaluator" class="pl.edu.agh.age.robot.RobotEvaluator">
+    <bean id="evaluator" class="pl.edu.agh.age.robot.evol.RobotEvaluator">
         <constructor-arg name="counter" ref="evaluatorCounter"/>
     </bean>
 
