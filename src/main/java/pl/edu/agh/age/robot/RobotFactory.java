@@ -7,29 +7,33 @@ import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import pl.edu.agh.age.common.BuildingProvider;
 import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
 import pl.edu.agh.miss.intruders.graph.Graph;
 import pl.edu.agh.miss.intruders.graph.Vertex;
-import pl.edu.agh.miss.util.ConvertUtils;
+import pl.edu.agh.miss.util.Commons;
 
 public class RobotFactory {
 	
 	private EvaluatorCounter evaluatorCounter;
 	
-	public RobotFactory(EvaluatorCounter evaluatorCounter) {
+	private BuildingProvider buildingProvider;
+	
+	public RobotFactory(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider) {
 		this.evaluatorCounter = evaluatorCounter;
+		this.buildingProvider = buildingProvider;
 	}
 
 	public RobotSolution create() {
-		RobotEvaluator evaluator = new RobotEvaluator(evaluatorCounter);
-		Map<String, List<String>> nametoRoutes = createSolution(ConvertUtils.ROUTES_COUNT);
+		RobotEvaluator evaluator = new RobotEvaluator(evaluatorCounter, buildingProvider);
+		Map<String, List<String>> nametoRoutes = createSolution(Commons.ROUTES_COUNT);
 		RobotSolution solution = new RobotSolution(nametoRoutes);
-		return solution.updateFitness(evaluator.evaluate(solution));
+		return solution.withFitness(evaluator.evaluate(solution));
 	}
 
 	private Map<String, List<String>> createSolution(int routesCount) {
 		Random rand = ThreadLocalRandom.current();
-		Graph graph = ConvertUtils.getGraph();
+		Graph graph = buildingProvider.getGraph();
 		Map<String, List<String>> result = new HashMap<>();
 		for (Vertex v : graph.getVertices()) {
 			result.put(v.getName(), new LinkedList<>());
@@ -38,7 +42,7 @@ public class RobotFactory {
 				int index = rand.nextInt(neighbors.size()+1);
 				String route = null;
 				if (index==neighbors.size()) {
-					route = ConvertUtils.THROUGH;
+					route = Commons.THROUGH;
 				} else {
 					route = neighbors.get(index).getName();
 				}

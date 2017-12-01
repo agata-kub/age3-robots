@@ -1,10 +1,7 @@
 package pl.edu.agh.miss.brute;
 
-import java.util.Collections;
 import java.util.Iterator;
-import java.util.Collection;
 import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,32 +10,35 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Sets;
 
+import pl.edu.agh.age.common.BuildingProvider;
 import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
 import pl.edu.agh.age.robot.RobotEvaluator;
 import pl.edu.agh.age.robot.RobotSolution;
 import pl.edu.agh.miss.intruders.api.Building;
 import pl.edu.agh.miss.intruders.graph.Graph;
 import pl.edu.agh.miss.intruders.graph.Vertex;
-import pl.edu.agh.miss.util.ConvertUtils;
+import pl.edu.agh.miss.util.Commons;
 
 public class BruteSolver {
 
 	private Building building;
 	private Graph graph;
+	private BuildingProvider buildingProvider;
 	
 	public BruteSolver() {
-		building = ConvertUtils.getBuilding();
-		graph = ConvertUtils.getGraph();
+		buildingProvider = new BuildingProvider();
+		building = buildingProvider.getBuilding();
+		graph = buildingProvider.getGraph();
 	}
 
 	public static void main(String[] args) {
 		BruteSolver solver = new BruteSolver();
-		List<RobotSolution> solutions = solver.generateAllPossibleSolutions(ConvertUtils.ROUTES_COUNT);
+		List<RobotSolution> solutions = solver.generateAllPossibleSolutions(Commons.ROUTES_COUNT);
 		System.out.println(solutions);
 	}
 
 	public void solve() {
-		List<RobotSolution> allSolutions = generateAllPossibleSolutions(ConvertUtils.ROUTES_COUNT);
+		List<RobotSolution> allSolutions = generateAllPossibleSolutions(Commons.ROUTES_COUNT);
 		double bestValue = Double.MAX_VALUE;
 		RobotSolution bestSolution = null;
 		for (RobotSolution solution : allSolutions) {
@@ -77,14 +77,14 @@ public class BruteSolver {
 	private Set<List<String>> getAllPossibleRoutesForVertex(Vertex v) {
 		List<Set<String>> all = new LinkedList<>();
 		Set<String> neighborNames = v.getNeighbors().stream().map((n) -> n.getName()).collect(Collectors.toSet());
-		for (int i = 0; i < ConvertUtils.ROUTES_COUNT; i++) {
+		for (int i = 0; i < Commons.ROUTES_COUNT; i++) {
 			all.add(neighborNames);
 		}
 		return Sets.cartesianProduct(all);
 	}
 
 	private double testSolution(RobotSolution solution) {
-		RobotEvaluator evaluator = new RobotEvaluator(EvaluatorCounter.empty());
+		RobotEvaluator evaluator = new RobotEvaluator(EvaluatorCounter.empty(), buildingProvider);
 		return evaluator.evaluate(solution);
 	}
 

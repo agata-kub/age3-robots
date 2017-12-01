@@ -1,5 +1,6 @@
 package pl.edu.agh.age.robot;
 
+import pl.edu.agh.age.common.BuildingProvider;
 import pl.edu.agh.age.compute.stream.problem.Evaluator;
 import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
 import pl.edu.agh.miss.intruders.EvolRobotsController;
@@ -12,14 +13,16 @@ import pl.edu.agh.miss.intruders.api.intruder.IntruderController;
 import pl.edu.agh.miss.intruders.api.robots.RobotsController;
 import pl.edu.agh.miss.measure.IMeasurer;
 import pl.edu.agh.miss.measure.SimpleMeasurer;
-import pl.edu.agh.miss.util.ConvertUtils;
 
 public class RobotEvaluator implements Evaluator<RobotSolution> {
 	
 	private EvaluatorCounter evaluatorCounter;
 	
-	public RobotEvaluator(EvaluatorCounter evaluatorCounter) {
+	private BuildingProvider buildingProvider;
+	
+	public RobotEvaluator(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider) {
 		this.evaluatorCounter = evaluatorCounter;
+		this.buildingProvider = buildingProvider;
 	}
 
 	@Override
@@ -28,7 +31,7 @@ public class RobotEvaluator implements Evaluator<RobotSolution> {
 		RobotsController rc = new EvolRobotsController(value.unwrap());
 		Config config = new SampleConfig();
 		IMeasurer measurer = new SimpleMeasurer();
-		Building building = ConvertUtils.getBuilding();
+		Building building = buildingProvider.getBuilding();
 		
 		Simulator simulator = new Simulator(ic, rc, config, building, null, 1, 20, null, measurer);
 		simulator.simulate();

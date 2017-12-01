@@ -12,7 +12,7 @@ import pl.edu.agh.miss.intruders.api.DoorNode;
 import pl.edu.agh.miss.intruders.api.Robot;
 import pl.edu.agh.miss.intruders.api.Room;
 import pl.edu.agh.miss.intruders.api.robots.RobotsController;
-import pl.edu.agh.miss.util.ConvertUtils;
+import pl.edu.agh.miss.util.Commons;
 
 public class EvolRobotsController implements RobotsController {
 	
@@ -58,7 +58,7 @@ public class EvolRobotsController implements RobotsController {
 //				System.out.println(name);
 				int currentIndex = nametoIndex.get(name);
 				String route = nametoRoutes.get(name).get(currentIndex);
-				nametoIndex.put(name, (currentIndex+1)%ConvertUtils.ROUTES_COUNT);
+				nametoIndex.put(name, (currentIndex+1)%Commons.ROUTES_COUNT);
 				if (!nameToRobots.containsKey(route)) {
 					nameToRobots.put(route, new LinkedList<>());
 				}
@@ -66,7 +66,7 @@ public class EvolRobotsController implements RobotsController {
 			}
 			// distribute prepared robots
 			for (String name : nameToRobots.keySet()) {
-				if (name.equals(ConvertUtils.THROUGH)) {
+				if (name.equals(Commons.THROUGH)) {
 					node.setRobotsFromTheOtherSide(nameToRobots.get(name));
 				} else {
 					for (DoorEdge edge : node.getEdges()) {

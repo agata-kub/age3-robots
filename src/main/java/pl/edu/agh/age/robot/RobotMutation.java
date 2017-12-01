@@ -9,12 +9,18 @@ import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
+import pl.edu.agh.age.common.BuildingProvider;
 import pl.edu.agh.age.compute.stream.emas.reproduction.mutation.Mutation;
 import pl.edu.agh.miss.intruders.graph.Graph;
 import pl.edu.agh.miss.intruders.graph.Vertex;
-import pl.edu.agh.miss.util.ConvertUtils;
 
 public class RobotMutation implements Mutation<RobotSolution> {
+	
+	private BuildingProvider buildingProvider;
+	
+	public RobotMutation(BuildingProvider buildingProvider) {
+		this.buildingProvider = buildingProvider;
+	}
 
 	@Override
 	public RobotSolution mutate(RobotSolution solution) {
@@ -25,7 +31,7 @@ public class RobotMutation implements Mutation<RobotSolution> {
 			int mutationPointsCount) {
 		Random rand = ThreadLocalRandom.current();
 		Map<String, List<String>> result = new HashMap<>();
-		Graph graph = ConvertUtils.getGraph();
+		Graph graph = buildingProvider.getGraph();
 		// get random indexes
 		Set<Integer> indexes = new HashSet<>();
 		for (int i=0;i<elementsCount;i++) {

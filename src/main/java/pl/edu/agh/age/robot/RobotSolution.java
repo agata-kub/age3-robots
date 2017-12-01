@@ -22,11 +22,6 @@ public class RobotSolution implements Solution<Map<String,List<String>>> {
 		return fitness;
 	}
 
-	public RobotSolution updateFitness(double fitness) {
-		this.fitness = fitness;
-		return this;
-	}
-
 	@Override
 	public Map<String, List<String>> unwrap() {
 		return nametoRoutes;
@@ -47,8 +42,8 @@ public class RobotSolution implements Solution<Map<String,List<String>>> {
 	}
 
 	@Override
-	public Solution<Map<String, List<String>>> withFitness(double fitness) {
-		// TODO Auto-generated method stub
-		return null;
+	public RobotSolution withFitness(double fitness) {
+		this.fitness = fitness;
+		return this;
 	}
 }

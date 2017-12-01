@@ -8,5 +8,4 @@ public class RobotProblem implements ProblemDefinition {
 	public String representation() {
 		return "prosiaczek";
 	}
-
 }
