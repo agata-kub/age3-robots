@@ -31,6 +31,7 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <!-- ******************* PROBLEM DEFINITION ******************* -->
 
     <bean id="problemDefinition" class="pl.edu.agh.age.robot.RobotProblem">
+    	<constructor-arg name="path" value="${robot.problem.source-path}" />
     </bean>
 
     <bean id="stopCondition" class="pl.edu.agh.age.compute.stream.TimedStopCondition">
