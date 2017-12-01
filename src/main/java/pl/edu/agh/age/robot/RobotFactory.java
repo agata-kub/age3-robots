@@ -14,11 +14,11 @@ import pl.edu.agh.miss.intruders.graph.Vertex;
 import pl.edu.agh.miss.util.Commons;
 
 public class RobotFactory {
-	
+
 	private EvaluatorCounter evaluatorCounter;
-	
+
 	private BuildingProvider buildingProvider;
-	
+
 	public RobotFactory(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider) {
 		this.evaluatorCounter = evaluatorCounter;
 		this.buildingProvider = buildingProvider;
@@ -35,20 +35,30 @@ public class RobotFactory {
 		Random rand = ThreadLocalRandom.current();
 		Graph graph = buildingProvider.getGraph();
 		Map<String, List<String>> result = new HashMap<>();
-		for (Vertex v : graph.getVertices()) {
-			result.put(v.getName(), new LinkedList<>());
-			List<Vertex> neighbors = v.getNeighbors();
-			for (int i=0;i<routesCount;i++) {
-				int index = rand.nextInt(neighbors.size()+1);
-				String route = null;
-				if (index==neighbors.size()) {
-					route = Commons.THROUGH;
-				} else {
-					route = neighbors.get(index).getName();
-				}
-				result.get(v.getName()).add(route);
-			}
+		for (Vertex vertex : graph.getVertices()) {
+			createSolutionForVertex(routesCount, rand, result, vertex);
 		}
 		return result;
+	}
+
+	private void createSolutionForVertex(int routesCount, Random rand, Map<String, List<String>> result,
+			Vertex vertex) {
+		result.put(vertex.getName(), new LinkedList<>());
+		List<Vertex> neighbors = vertex.getNeighbors();
+		for (int i = 0; i < routesCount; i++) {
+			createRouteEntry(rand, result, vertex, neighbors);
+		}
+	}
+
+	private void createRouteEntry(Random rand, Map<String, List<String>> result, Vertex vertex,
+			List<Vertex> neighbors) {
+		int index = rand.nextInt(neighbors.size() + 1);
+		String route = null;
+		if (index == neighbors.size()) {
+			route = Commons.THROUGH;
+		} else {
+			route = neighbors.get(index).getName();
+		}
+		result.get(vertex.getName()).add(route);
 	}
 }

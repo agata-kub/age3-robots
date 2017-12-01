@@ -31,9 +31,11 @@ public class RobotEvaluator implements Evaluator<RobotSolution> {
 		RobotsController rc = new EvolRobotsController(value.unwrap());
 		Config config = new SampleConfig();
 		IMeasurer measurer = new SimpleMeasurer();
-		Building building = buildingProvider.getBuilding();
-		
-		Simulator simulator = new Simulator(ic, rc, config, building, null, 1, 20, null, measurer);
+		Building building = buildingProvider.getBuilding();	
+		int iterations = 1;
+		int timeUnits = 20;
+
+		Simulator simulator = new Simulator(ic, rc, config, building, null, iterations, timeUnits, null, measurer);
 		simulator.simulate();
 		
 		evaluatorCounter.increment();

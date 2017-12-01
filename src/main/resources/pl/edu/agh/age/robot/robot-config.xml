@@ -157,7 +157,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     </bean>
 
     <!-- Define population evaluator -->
-    <bean id="populationEvaluator" class="pl.edu.agh.age.common.MemeticPopulationEvaluator"/>
+    <bean id="populationEvaluator" class="pl.edu.agh.age.compute.stream.emas.PopulationEvaluator"
+    	  factory-method="simpleEvaluator" >
+    	  <constructor-arg name="evaluator" ref="evaluator"/>
+    </bean>
 
     <!-- Define a before-step analyzer -->
     <bean id="before-step-analyzer" class="pl.edu.agh.age.compute.stream.BeforeStepAction"
