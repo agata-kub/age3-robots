@@ -3,6 +3,7 @@ package pl.edu.agh.age.common;
 import java.io.File;
 import java.io.IOException;
 
+import pl.edu.agh.miss.intruders.Main;
 import pl.edu.agh.miss.intruders.api.Building;
 import pl.edu.agh.miss.intruders.api.DoorEdge;
 import pl.edu.agh.miss.intruders.api.DoorNode;
@@ -10,13 +11,15 @@ import pl.edu.agh.miss.intruders.graph.Graph;
 import pl.edu.agh.miss.intruders.graph.Vertex;
 import pl.edu.agh.miss.intruders.service.Converter;
 import pl.edu.agh.miss.intruders.service.IOService;
-import pl.edu.agh.miss.util.Commons;
 
 public class BuildingProvider {
 	
 	private Graph graph;
 	
-	public BuildingProvider() {
+	private String sourcePath;
+	
+	public BuildingProvider(String sourcePath) {
+		this.sourcePath = sourcePath;
 		Building building = getBuilding();
 		graph = toGraph(building);
 	}
@@ -26,7 +29,7 @@ public class BuildingProvider {
 	}
 	
 	public Building getBuilding() {
-		File file = new File(Commons.BUILDING_FILE_PATH);
+		File file = getResourceFile();
 		try {
 			Converter converter = new Converter(IOService.importFromJson(file));
 			Building building = converter.rosonToSimulation();
@@ -35,6 +38,10 @@ public class BuildingProvider {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private File getResourceFile() {
+		return new File(Main.class.getClassLoader().getResource(sourcePath).getFile());
 	}
 	
 	private Graph toGraph(Building building) {

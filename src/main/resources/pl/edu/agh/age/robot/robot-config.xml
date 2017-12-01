@@ -78,7 +78,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     <bean id="mutation" class="pl.edu.agh.age.robot.RobotMutation">
     </bean>
     
-    <bean id="buildingProvider" class="pl.edu.agh.age.common.BuildingProvider" >
+    <bean id="buildingProvider" class="pl.edu.agh.age.common.BuildingProvider">
+    	<constructor-arg value="${robot.problem.source-path}" />
     </bean>
 
     <bean id="sexualReproductionEnergyTransfer"

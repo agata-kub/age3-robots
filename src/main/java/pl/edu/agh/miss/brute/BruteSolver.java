@@ -26,7 +26,7 @@ public class BruteSolver {
 	private BuildingProvider buildingProvider;
 	
 	public BruteSolver() {
-		buildingProvider = new BuildingProvider();
+		buildingProvider = new BuildingProvider("dupa");
 		building = buildingProvider.getBuilding();
 		graph = buildingProvider.getGraph();
 	}
