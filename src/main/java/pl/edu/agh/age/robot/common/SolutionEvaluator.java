@@ -21,19 +21,26 @@ public class SolutionEvaluator {
 	
 	private BuildingProvider buildingProvider;
 	
-	public SolutionEvaluator(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider) {
+	private int iterations;
+	
+	private int timeUnits;
+	
+	private int routesCount;
+	
+	public SolutionEvaluator(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider, int iterations, int timeUnits, int routesCount) {
 		this.evaluatorCounter = evaluatorCounter;
 		this.buildingProvider = buildingProvider;
+		this.iterations = iterations;
+		this.timeUnits = timeUnits;
+		this.routesCount = routesCount;
 	}
 	
 	public double evaluate(Map<String, List<String>> value) {
 		IntruderController ic = new SampleIntruderController();
-		RobotsController rc = new EvolRobotsController(value);
+		RobotsController rc = new EvolRobotsController(value, routesCount);
 		Config config = new SampleConfig();
 		IMeasurer measurer = new SimpleMeasurer();
 		Building building = buildingProvider.getBuilding();	
-		int iterations = 1;
-		int timeUnits = 20;
 
 		Simulator simulator = new Simulator(ic, rc, config, building, null, iterations, timeUnits, null, measurer);
 		simulator.simulate();

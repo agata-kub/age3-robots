@@ -24,12 +24,15 @@ public class EvolRobotsController implements RobotsController {
 	
 	private List<Room> rooms;
 	
-	public EvolRobotsController(Map<String,List<String>> nametoRoutes) {
+	private int routesCount;
+	
+	public EvolRobotsController(Map<String,List<String>> nametoRoutes, int routesCount) {
 		this.nametoRoutes = nametoRoutes;
 		this.nametoIndex = new HashMap<>();
 		for (String name : nametoRoutes.keySet()) {
 			nametoIndex.put(name, 0);
 		}
+		this.routesCount = routesCount;
 	}
 
 	@Override
@@ -58,7 +61,7 @@ public class EvolRobotsController implements RobotsController {
 //				System.out.println(name);
 				int currentIndex = nametoIndex.get(name);
 				String route = nametoRoutes.get(name).get(currentIndex);
-				nametoIndex.put(name, (currentIndex+1)%Commons.ROUTES_COUNT);
+				nametoIndex.put(name, (currentIndex+1)%routesCount);
 				if (!nameToRobots.containsKey(route)) {
 					nameToRobots.put(route, new LinkedList<>());
 				}

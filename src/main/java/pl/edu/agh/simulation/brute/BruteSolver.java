@@ -20,6 +20,8 @@ import pl.edu.agh.simulation.intruders.graph.Vertex;
 import pl.edu.agh.simulation.util.Commons;
 
 public class BruteSolver {
+	
+	private static final int ROUTES_COUNT = 2;
 
 	private Building building;
 	private Graph graph;
@@ -33,12 +35,12 @@ public class BruteSolver {
 
 	public static void main(String[] args) {
 		BruteSolver solver = new BruteSolver();
-		List<RobotSolution> solutions = solver.generateAllPossibleSolutions(Commons.ROUTES_COUNT);
+		List<RobotSolution> solutions = solver.generateAllPossibleSolutions(ROUTES_COUNT);
 		System.out.println(solutions);
 	}
 
 	public void solve() {
-		List<RobotSolution> allSolutions = generateAllPossibleSolutions(Commons.ROUTES_COUNT);
+		List<RobotSolution> allSolutions = generateAllPossibleSolutions(ROUTES_COUNT);
 		double bestValue = Double.MAX_VALUE;
 		RobotSolution bestSolution = null;
 		for (RobotSolution solution : allSolutions) {
@@ -77,14 +79,14 @@ public class BruteSolver {
 	private Set<List<String>> getAllPossibleRoutesForVertex(Vertex v) {
 		List<Set<String>> all = new LinkedList<>();
 		Set<String> neighborNames = v.getNeighbors().stream().map((n) -> n.getName()).collect(Collectors.toSet());
-		for (int i = 0; i < Commons.ROUTES_COUNT; i++) {
+		for (int i = 0; i < ROUTES_COUNT; i++) {
 			all.add(neighborNames);
 		}
 		return Sets.cartesianProduct(all);
 	}
 
 	private double testSolution(RobotSolution solution) {
-		RobotEvaluator evaluator = new RobotEvaluator(EvaluatorCounter.empty(), buildingProvider);
+		RobotEvaluator evaluator = new RobotEvaluator(EvaluatorCounter.empty(), buildingProvider, 1, 20, ROUTES_COUNT);
 		return evaluator.evaluate(solution);
 	}
 

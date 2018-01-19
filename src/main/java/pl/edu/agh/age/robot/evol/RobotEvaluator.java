@@ -9,8 +9,8 @@ public class RobotEvaluator implements Evaluator<RobotSolution> {
 	
 	private SolutionEvaluator solutionEvaluator;
 	
-	public RobotEvaluator(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider) {
-		this.solutionEvaluator = new SolutionEvaluator(evaluatorCounter, buildingProvider);
+	public RobotEvaluator(EvaluatorCounter evaluatorCounter, BuildingProvider buildingProvider, int iterations, int timeUnits, int routesCount) {
+		this.solutionEvaluator = new SolutionEvaluator(evaluatorCounter, buildingProvider, iterations, timeUnits, routesCount);
 	}
 
 	@Override

@@ -41,13 +41,19 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     	<constructor-arg value="${robot.problem.source-path}" />
     </bean>
     
-    <bean id="evaluator" class="pl.edu.agh.age.robot.ea.RobotEvaluator" />
+    <bean id="evaluator" class="pl.edu.agh.age.robot.ea.RobotEvaluator">
+        <constructor-arg name="iterations" value="${robot.problem.iterations-count}" />
+        <constructor-arg name="timeUnits" value="${robot.problem.time-units-count}" /> 
+        <constructor-arg name="routesCount" value="${robot.problem.routes-count}" />
+    </bean>
 
 	<!-- Define a list of agents for workplaces -->
 	<bean id="population" class="pl.edu.agh.age.compute.ea.Populations" factory-method="createPopulation">
 		<constructor-arg name="size" value="${population.size}"/>
 		<constructor-arg name="solutionGenerator">
-			<bean class="pl.edu.agh.age.robot.ea.RobotSolutionGenerator"/>
+			<bean class="pl.edu.agh.age.robot.ea.RobotSolutionGenerator">
+				<constructor-arg name="routesCount" value="${robot.problem.routes-count}" />
+			</bean>
 		</constructor-arg>
 	</bean>
 

@@ -3,7 +3,6 @@ package pl.edu.agh.age.robot.ea;
 import io.vavr.Function0;
 import pl.edu.agh.age.robot.common.BuildingProvider;
 import pl.edu.agh.age.robot.common.SolutionCreator;
-import pl.edu.agh.simulation.util.Commons;
 
 public class RobotSolutionGenerator implements Function0<RobotSolution>{
 	
@@ -11,13 +10,16 @@ public class RobotSolutionGenerator implements Function0<RobotSolution>{
 
 	private SolutionCreator solutionCreator;
 	
-	public RobotSolutionGenerator(BuildingProvider buildingProvider) {
+	private int routesCount;
+	
+	public RobotSolutionGenerator(BuildingProvider buildingProvider, int routesCount) {
 		this.solutionCreator = new SolutionCreator(buildingProvider);
+		this.routesCount = routesCount;
 	}
 
 	@Override
 	public RobotSolution apply() {
-		return new RobotSolution(solutionCreator.createSolution(Commons.ROUTES_COUNT));
+		return new RobotSolution(solutionCreator.createSolution(routesCount));
 	}
 
 }
