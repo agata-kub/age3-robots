@@ -3,6 +3,8 @@ package pl.edu.agh.age.robot.evol;
 import java.util.List;
 import java.util.Map;
 
+import com.google.gson.Gson;
+
 import pl.edu.agh.age.compute.stream.emas.solution.Solution;
 
 public class RobotSolution implements Solution<Map<String,List<String>>> {
@@ -29,16 +31,8 @@ public class RobotSolution implements Solution<Map<String,List<String>>> {
 	
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		for (String name : nametoRoutes.keySet()) {
-			sb.append("*"+name+":");
-			for (String route : nametoRoutes.get(name)) {
-				sb.append(",");
-				sb.append(route);
-			}
-			sb.append("*");
-		}
-		return sb.toString();
+		Gson gson = new Gson();
+		return gson.toJson(nametoRoutes);
 	}
 
 	@Override

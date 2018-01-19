@@ -8,7 +8,7 @@ public class SampleConfig implements Config {
 	@Override
 	public float getNewProbability(float currentProbability, Robot robot) {
 		if (robot!=null) {
-			return currentProbability/10;
+			return currentProbability/100;
 		}
 		return currentProbability;
 	}

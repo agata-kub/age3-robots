@@ -30,11 +30,13 @@ applicationDefaultJvmArgs = [
 dependencies {
 	compile project(':age3-core')
 	compile project(':age3-stream-agents')
+	compile project(':age3-ea')
 	// added by me
 	compile group: 'commons-cli', name: 'commons-cli', version: '1.3.1'
 	compile group: 'org.graphstream', name: 'gs-core', version: '1.3'
 	compile group: 'org.graphstream', name: 'gs-ui', version: '1.3'
 	compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.6.3'
+	compile group: 'com.google.code.gson', name: 'gson', version: '1.7.2'
 }
 
 shadowJar {
