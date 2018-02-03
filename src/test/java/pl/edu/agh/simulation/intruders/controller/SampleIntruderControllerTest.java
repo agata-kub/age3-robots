@@ -1,4 +1,4 @@
-package pl.edu.agh.simulation.intruders.api.impl;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.LinkedList;
 import java.util.List;

@@ -4,6 +4,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import com.google.gson.Gson;
+
 public class DoorEdge {
 	
 	private DoorNode source;
@@ -64,21 +66,15 @@ public class DoorEdge {
 
 	@Override
 	public String toString() {
+		Gson gson = new Gson();
+		String robotString = gson.toJson(robotsQueue);
+		String intruderString = gson.toJson(intruderQueue);
 		StringBuilder sb = new StringBuilder();
-		sb.append("Edge "+getName()+": ");
-		for (Float i : intruderQueue) {
-			sb.append(i+", ");
-		}
-		sb.append(" ** ");
-		for (List<Robot> s : robotsQueue) {
-			for (Robot r : s) {
-				sb.append(r == null ? "null" : "robot");
-				sb.append(", ");
-			}
-			sb.append(" | ");
-		}
-		sb.append(" ( "+getLength()+" ) ");
-		sb.append("\n");
+		sb.append("Edge "+getName()+"\n");
+		sb.append("\tIntruders: \n");
+		sb.append(intruderString+"\n");
+		sb.append("\tRobots: \n");
+		sb.append(robotString+"\n");
 		return sb.toString();
 	}
 

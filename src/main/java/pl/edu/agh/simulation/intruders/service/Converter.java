@@ -11,6 +11,7 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.function.Function;
 
+import ch.qos.logback.classic.net.SyslogAppender;
 import pl.edu.agh.simulation.intruders.model.Building;
 import pl.edu.agh.simulation.intruders.model.DoorEdge;
 import pl.edu.agh.simulation.intruders.model.DoorNode;
@@ -74,27 +75,34 @@ public class Converter {
             doors.put(edge.getNodeToId(), end);
         });
 
-        building.getSpaces().values().stream().forEach(node -> {
+        building.getSpaces().values().stream().forEach(space -> {
             Room room = new Room();
-            node.getIncidentNodes().stream().filter(n -> building.isGate(n.getNodeId())).forEach(n -> {
+            // assing all doorNodes to corresponding rooms
+            space.getIncidentNodes().stream().filter(n -> building.isGate(n.getNodeId())).forEach(n -> {
                 if (doors.get(n.getNodeId()) != null) room.addNode(doors.get(n.getNodeId()));
             });
-            node.getIncidentNodes().stream().forEach(gate -> addBidirectionalEdges(gate, node.getIncidentNodes(), doors));
-            node.getIncidentNodes().stream().filter(n -> doors.get(n.getNodeId()) != null)
-                    .forEach(n -> doors.get(n.getNodeId()).getEdges().stream()
+            // link all doorNodes attached to the space with each other
+            space.getIncidentNodes().stream().forEach(gate -> addBidirectionalEdges(gate, space.getIncidentNodes(), doors));
+            
+            space.getIncidentNodes().stream() // for all gates attached to the space
+            		.filter(n -> doors.get(n.getNodeId()) != null) // filter out ones that aren't doors
+                    .forEach(n -> doors.get(n.getNodeId()).getEdges().stream() // for every edge attached to each gate
                             .forEach(e -> {
-                                Queue<List<Robot>> q = new LinkedList<>();
-                                List<Robot> l = new LinkedList<>();
-                                if (node.isRobotThere()) {
-                                    l.add(new Robot());
-                                    node.isRobotThere(false);
-//                                    System.out.println(node);
-                                }
-                                q.add(l);
-                                while (q.size()<e.getLength()) {
-                                    q.add(new LinkedList<>());
-                                }
-                                e.setRobotsQueue(q);
+                            	if (e.getRobotsQueue() == null) {
+//	                            	System.out.println(e.getName());
+	                                Queue<List<Robot>> q = new LinkedList<>();
+	                                List<Robot> l = new LinkedList<>();
+	                                if (space.isRobotThere()) {
+	                                    l.add(new Robot());
+	                                    space.isRobotThere(false);
+	//                                    System.out.println(node);
+	                                }
+	                                q.add(l);
+	                                while (q.size()<e.getLength()) {
+	                                    q.add(new LinkedList<>());
+	                                }
+	                                e.setRobotsQueue(q);
+                            	}
                             }));
             rooms.add(room);
         });
@@ -102,19 +110,22 @@ public class Converter {
         return new Building(rooms, doorNodes);
     };
 
-    private void addBidirectionalEdges(Node gate, Set<Node> incidentNodes, Map<String, DoorNode> doors) {
-        DoorNode door = doors.get(gate.getNodeId());
-        if (door == null) return;
-        incidentNodes.stream().filter(node -> !Objects.equals(node.getNodeId(), gate.getNodeId())).forEach(node -> {
-            DoorNode other = doors.getOrDefault(node.getNodeId(), null);
-            if (other != null) {
-                gate.getIncidentNodes().add(rosonBuilding.getNode(other.getName()));
-                DoorEdge startEnd = new DoorEdge(door, other);
-                startEnd.setLength(1);
-                door.addEdge(startEnd);
-                other.addEdge(startEnd);
-                startEnd.setIntrudersQueue(generateQueue(startEnd.getLength()));
-            }
+    private void addBidirectionalEdges(Node gate, Set<Node> spaceIncidentNodes, Map<String, DoorNode> doors) {
+        DoorNode doorNode = doors.get(gate.getNodeId());
+        if (doorNode == null) return;
+        spaceIncidentNodes.stream()
+        	// check if it's not the same gate node
+        	.filter(spaceIncidentNode -> !Objects.equals(spaceIncidentNode.getNodeId(), gate.getNodeId()))
+        	.forEach(incidentDoorNode -> {
+        		DoorNode other = doors.getOrDefault(incidentDoorNode.getNodeId(), null);
+        		if (other != null) {
+	                gate.getIncidentNodes().add(rosonBuilding.getNode(other.getName()));
+	                DoorEdge startEnd = new DoorEdge(doorNode, other);
+	                startEnd.setLength(1);
+	                doorNode.addEdge(startEnd);
+	                other.addEdge(startEnd);
+	                startEnd.setIntrudersQueue(generateQueue(startEnd.getLength()));
+        		}
         });
     }
 
