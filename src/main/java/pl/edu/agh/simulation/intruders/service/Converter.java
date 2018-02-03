@@ -1,10 +1,21 @@
 package pl.edu.agh.simulation.intruders.service;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Queue;
+import java.util.Set;
 import java.util.function.Function;
 
-import pl.edu.agh.simulation.intruders.api.*;
-import pl.edu.agh.simulation.intruders.api.impl.*;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
+import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
+import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
+import pl.edu.agh.simulation.intruders.api.impl.Robot;
+import pl.edu.agh.simulation.intruders.api.impl.Room;
 import pl.edu.agh.simulation.intruders.model.Node;
 import pl.edu.agh.simulation.intruders.model.RosonBuilding;
 
@@ -24,7 +35,7 @@ public class Converter {
         return simulationToRosonConverter.apply(building);
     }
 
-    private Function<RosonBuilding, SampleBuilding> rosonToSimulationConverter = building -> {
+    private Function<RosonBuilding, Building> rosonToSimulationConverter = building -> {
         List<DoorNode> doorNodes = new LinkedList<>();
         Map<String, DoorNode> doors = new HashMap<>();
         List<Room> rooms = new LinkedList<>();
@@ -33,10 +44,10 @@ public class Converter {
                         .containsKey(edge.getNodeFromId()) && !doors.containsKey(edge.getNodeToId()))
                 .forEach(edge -> {
 
-            DoorNode start = new SampleDoorNode();
-            DoorNode end = new SampleDoorNode();
-            DoorEdge startEnd = new SampleDoorEdge(start, end);
-            DoorEdge endStart = new SampleDoorEdge(end, start);
+            DoorNode start = new DoorNode();
+            DoorNode end = new DoorNode();
+            DoorEdge startEnd = new DoorEdge(start, end);
+            DoorEdge endStart = new DoorEdge(end, start);
 
             startEnd.setLength((int) (edge.getCost() * 10));
             endStart.setLength((int) (edge.getCost() * 10));
@@ -64,7 +75,7 @@ public class Converter {
         });
 
         building.getSpaces().values().stream().forEach(node -> {
-            Room room = new SampleRoom();
+            Room room = new Room();
             node.getIncidentNodes().stream().filter(n -> building.isGate(n.getNodeId())).forEach(n -> {
                 if (doors.get(n.getNodeId()) != null) room.addNode(doors.get(n.getNodeId()));
             });
@@ -75,7 +86,7 @@ public class Converter {
                                 Queue<List<Robot>> q = new LinkedList<>();
                                 List<Robot> l = new LinkedList<>();
                                 if (node.isRobotThere()) {
-                                    l.add(new SampleRobot());
+                                    l.add(new Robot());
                                     node.isRobotThere(false);
 //                                    System.out.println(node);
                                 }
@@ -88,7 +99,7 @@ public class Converter {
             rooms.add(room);
         });
         doorNodes.addAll(doors.values());
-        return new SampleBuilding(rooms, doorNodes);
+        return new Building(rooms, doorNodes);
     };
 
     private void addBidirectionalEdges(Node gate, Set<Node> incidentNodes, Map<String, DoorNode> doors) {
@@ -98,7 +109,7 @@ public class Converter {
             DoorNode other = doors.getOrDefault(node.getNodeId(), null);
             if (other != null) {
                 gate.getIncidentNodes().add(rosonBuilding.getNode(other.getName()));
-                DoorEdge startEnd = new SampleDoorEdge(door, other);
+                DoorEdge startEnd = new DoorEdge(door, other);
                 startEnd.setLength(1);
                 door.addEdge(startEnd);
                 other.addEdge(startEnd);

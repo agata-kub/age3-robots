@@ -9,9 +9,9 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
-import pl.edu.agh.simulation.intruders.api.Building;
-import pl.edu.agh.simulation.intruders.api.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.DoorNode;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
+import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
+import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
 import pl.edu.agh.simulation.intruders.model.Edge;
 import pl.edu.agh.simulation.intruders.model.Gate;
 import pl.edu.agh.simulation.intruders.model.Node;

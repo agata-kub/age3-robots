@@ -9,8 +9,8 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
-import pl.edu.agh.simulation.intruders.api.Building;
-import pl.edu.agh.simulation.intruders.api.Config;
+import pl.edu.agh.simulation.intruders.api.IConfig;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
 import pl.edu.agh.simulation.intruders.api.impl.SampleConfig;
 import pl.edu.agh.simulation.intruders.api.impl.SampleIntruderController;
 import pl.edu.agh.simulation.intruders.api.impl.SampleRobotsController;
@@ -87,7 +87,7 @@ public class Main {
 			Building building = converter.rosonToSimulation();
 			IntruderController ic = new SampleIntruderController();
 			RobotsController rc = new SampleRobotsController();
-			Config config = new SampleConfig();
+			IConfig config = new SampleConfig();
 			Measurer measurer = new Measurer(verbosity, cmd);
 			Simulator s;
 			if (cmd.hasOption("s")) {

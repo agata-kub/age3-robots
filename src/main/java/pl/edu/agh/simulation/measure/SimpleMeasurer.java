@@ -5,9 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import pl.edu.agh.simulation.intruders.api.Building;
-import pl.edu.agh.simulation.intruders.api.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.DoorNode;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
+import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
+import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
 
 public class SimpleMeasurer implements IMeasurer{
 	
@@ -54,5 +54,4 @@ public class SimpleMeasurer implements IMeasurer{
 	public float getFinalValue() {
 		return allIntruderValues.get(allIntruderValues.size()-1);
 	}
-
 }

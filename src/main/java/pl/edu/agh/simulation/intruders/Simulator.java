@@ -6,8 +6,8 @@ import java.util.Date;
 
 import org.graphstream.graph.Graph;
 
-import pl.edu.agh.simulation.intruders.api.Building;
-import pl.edu.agh.simulation.intruders.api.Config;
+import pl.edu.agh.simulation.intruders.api.IConfig;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
 import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
 import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
 import pl.edu.agh.simulation.intruders.model.Edge;
@@ -16,7 +16,6 @@ import pl.edu.agh.simulation.intruders.service.Converter;
 import pl.edu.agh.simulation.intruders.service.GraphView;
 import pl.edu.agh.simulation.intruders.service.utils.ColorUtils;
 import pl.edu.agh.simulation.measure.IMeasurer;
-import pl.edu.agh.simulation.measure.Measurer;
 
 public class Simulator {
 
@@ -24,7 +23,7 @@ public class Simulator {
 
 	private RobotsController robotsController;
 
-	private Config config;
+	private IConfig config;
 
 	private Building building;
 
@@ -38,7 +37,7 @@ public class Simulator {
 	
 	private GraphView graphView;
 
-	public Simulator(IntruderController intruderController, RobotsController robotsController, Config config,
+	public Simulator(IntruderController intruderController, RobotsController robotsController, IConfig config,
 					 Building building, Converter converter, int iterations, int timeUnits, GraphView view, IMeasurer measurer) {
 		this.intruderController = intruderController;
 		this.robotsController = robotsController;

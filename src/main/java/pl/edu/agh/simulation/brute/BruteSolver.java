@@ -14,10 +14,9 @@ import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
 import pl.edu.agh.age.robot.common.BuildingProvider;
 import pl.edu.agh.age.robot.evol.RobotEvaluator;
 import pl.edu.agh.age.robot.evol.RobotSolution;
-import pl.edu.agh.simulation.intruders.api.Building;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
 import pl.edu.agh.simulation.intruders.graph.Graph;
 import pl.edu.agh.simulation.intruders.graph.Vertex;
-import pl.edu.agh.simulation.util.Commons;
 
 public class BruteSolver {
 	

@@ -2,14 +2,14 @@ package pl.edu.agh.simulation.intruders.api.robots;
 
 import java.util.List;
 
-import pl.edu.agh.simulation.intruders.api.Config;
-import pl.edu.agh.simulation.intruders.api.DoorNode;
-import pl.edu.agh.simulation.intruders.api.Room;
+import pl.edu.agh.simulation.intruders.api.IConfig;
+import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
+import pl.edu.agh.simulation.intruders.api.impl.Room;
 
 /** Interface implemented to control the robots
  */
 public interface RobotsController {
     void init(List<DoorNode> doorNodes, List<Room> rooms);
     void update();
-    void reduceProbabilities(Config config);
+    void reduceProbabilities(IConfig config);
 }

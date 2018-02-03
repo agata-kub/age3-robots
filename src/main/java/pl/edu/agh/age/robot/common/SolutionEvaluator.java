@@ -6,8 +6,8 @@ import java.util.Map;
 import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
 import pl.edu.agh.simulation.intruders.EvolRobotsController;
 import pl.edu.agh.simulation.intruders.Simulator;
-import pl.edu.agh.simulation.intruders.api.Building;
-import pl.edu.agh.simulation.intruders.api.Config;
+import pl.edu.agh.simulation.intruders.api.IConfig;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
 import pl.edu.agh.simulation.intruders.api.impl.SampleConfig;
 import pl.edu.agh.simulation.intruders.api.impl.SampleIntruderController;
 import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
@@ -38,7 +38,7 @@ public class SolutionEvaluator {
 	public double evaluate(Map<String, List<String>> value) {
 		IntruderController ic = new SampleIntruderController();
 		RobotsController rc = new EvolRobotsController(value, routesCount);
-		Config config = new SampleConfig();
+		IConfig config = new SampleConfig();
 		IMeasurer measurer = new SimpleMeasurer();
 		Building building = buildingProvider.getBuilding();	
 

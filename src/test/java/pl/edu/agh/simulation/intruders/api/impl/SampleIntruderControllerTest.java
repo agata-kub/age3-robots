@@ -7,7 +7,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import pl.edu.agh.simulation.intruders.api.DoorNode;
 import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
 
 public class SampleIntruderControllerTest {

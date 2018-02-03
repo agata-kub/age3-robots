@@ -7,11 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import pl.edu.agh.simulation.intruders.api.Config;
-import pl.edu.agh.simulation.intruders.api.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.DoorNode;
-import pl.edu.agh.simulation.intruders.api.Robot;
-import pl.edu.agh.simulation.intruders.api.Room;
+import pl.edu.agh.simulation.intruders.api.IConfig;
 import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
 
 public class SampleRobotsController implements RobotsController {
@@ -69,7 +65,7 @@ public class SampleRobotsController implements RobotsController {
 	}
 
 	@Override
-	public void reduceProbabilities(Config config) {
+	public void reduceProbabilities(IConfig config) {
 		for (Room room : rooms) {
 //			System.out.println(room);
 			for (DoorNode node : room.getDoorNodes()) {

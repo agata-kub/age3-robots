@@ -2,7 +2,7 @@ package pl.edu.agh.simulation.measure;
 
 import java.io.IOException;
 
-import pl.edu.agh.simulation.intruders.api.Building;
+import pl.edu.agh.simulation.intruders.api.impl.Building;
 
 public interface IMeasurer {
 	

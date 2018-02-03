@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pl.edu.agh.simulation.intruders.api.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.DoorNode;
 import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
 
 public class SampleIntruderController implements IntruderController {

@@ -3,23 +3,18 @@ package pl.edu.agh.simulation.intruders.api.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import pl.edu.agh.simulation.intruders.api.DoorNode;
-import pl.edu.agh.simulation.intruders.api.Room;
-
-public class SampleRoom implements Room{
+public class Room {
 	
 	List<DoorNode> doorNodes;
 	
-	public SampleRoom() {
+	public Room() {
 		doorNodes = new LinkedList<>();
 	}
 
-	@Override
 	public List<DoorNode> getDoorNodes() {
 		return doorNodes;
 	}
 
-	@Override
 	public void addNode(DoorNode node) {
 		doorNodes.add(node);
 	}

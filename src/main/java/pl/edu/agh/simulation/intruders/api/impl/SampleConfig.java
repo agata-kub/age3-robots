@@ -1,9 +1,8 @@
 package pl.edu.agh.simulation.intruders.api.impl;
 
-import pl.edu.agh.simulation.intruders.api.Config;
-import pl.edu.agh.simulation.intruders.api.Robot;
+import pl.edu.agh.simulation.intruders.api.IConfig;
 
-public class SampleConfig implements Config {
+public class SampleConfig implements IConfig {
 
 	@Override
 	public float getNewProbability(float currentProbability, Robot robot) {
