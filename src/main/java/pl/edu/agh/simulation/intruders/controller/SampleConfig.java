@@ -1,6 +1,6 @@
-package pl.edu.agh.simulation.intruders.api.impl;
+package pl.edu.agh.simulation.intruders.controller;
 
-import pl.edu.agh.simulation.intruders.api.IConfig;
+import pl.edu.agh.simulation.intruders.model.Robot;
 
 public class SampleConfig implements IConfig {
 

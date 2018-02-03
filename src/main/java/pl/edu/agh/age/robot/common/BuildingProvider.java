@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.IOException;
 
 import pl.edu.agh.simulation.intruders.Main;
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
 import pl.edu.agh.simulation.intruders.graph.Graph;
 import pl.edu.agh.simulation.intruders.graph.Vertex;
+import pl.edu.agh.simulation.intruders.model.Building;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
 import pl.edu.agh.simulation.intruders.service.Converter;
 import pl.edu.agh.simulation.intruders.service.IOService;
 

@@ -6,12 +6,12 @@ import java.util.Date;
 
 import org.graphstream.graph.Graph;
 
-import pl.edu.agh.simulation.intruders.api.IConfig;
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
-import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
-import pl.edu.agh.simulation.intruders.model.Edge;
-import pl.edu.agh.simulation.intruders.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.controller.IConfig;
+import pl.edu.agh.simulation.intruders.controller.IntruderController;
+import pl.edu.agh.simulation.intruders.controller.RobotsController;
+import pl.edu.agh.simulation.intruders.model.Building;
+import pl.edu.agh.simulation.intruders.roson.model.Edge;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
 import pl.edu.agh.simulation.intruders.service.Converter;
 import pl.edu.agh.simulation.intruders.service.GraphView;
 import pl.edu.agh.simulation.intruders.service.utils.ColorUtils;

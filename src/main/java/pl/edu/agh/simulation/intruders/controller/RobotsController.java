@@ -1,10 +1,9 @@
-package pl.edu.agh.simulation.intruders.api.robots;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.List;
 
-import pl.edu.agh.simulation.intruders.api.IConfig;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
-import pl.edu.agh.simulation.intruders.api.impl.Room;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.intruders.model.Room;
 
 /** Interface implemented to control the robots
  */

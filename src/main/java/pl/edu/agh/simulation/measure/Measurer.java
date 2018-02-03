@@ -7,9 +7,9 @@ import java.util.List;
 
 import org.apache.commons.cli.CommandLine;
 
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
+import pl.edu.agh.simulation.intruders.model.Building;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
 
 public class Measurer implements IMeasurer{
 	

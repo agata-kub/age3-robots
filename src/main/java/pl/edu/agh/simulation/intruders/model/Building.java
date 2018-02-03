@@ -1,4 +1,4 @@
-package pl.edu.agh.simulation.intruders.api.impl;
+package pl.edu.agh.simulation.intruders.model;
 
 import java.util.List;
 

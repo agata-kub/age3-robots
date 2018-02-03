@@ -9,14 +9,14 @@ import java.util.stream.Collectors;
 import org.apache.commons.lang3.tuple.Pair;
 import org.junit.Test;
 
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
-import pl.edu.agh.simulation.intruders.model.Edge;
-import pl.edu.agh.simulation.intruders.model.Gate;
-import pl.edu.agh.simulation.intruders.model.Node;
-import pl.edu.agh.simulation.intruders.model.RosonBuilding;
-import pl.edu.agh.simulation.intruders.model.Space;
+import pl.edu.agh.simulation.intruders.model.Building;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.intruders.roson.model.Edge;
+import pl.edu.agh.simulation.intruders.roson.model.Gate;
+import pl.edu.agh.simulation.intruders.roson.model.Node;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.roson.model.Space;
 
 public class ConverterTest {
 

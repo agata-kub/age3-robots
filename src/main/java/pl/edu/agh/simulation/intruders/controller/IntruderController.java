@@ -1,8 +1,8 @@
-package pl.edu.agh.simulation.intruders.api.intruder;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.List;
 
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
 
 /** Interface implemented to control the intruder
  */

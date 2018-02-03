@@ -11,13 +11,13 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.function.Function;
 
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
-import pl.edu.agh.simulation.intruders.api.impl.Robot;
-import pl.edu.agh.simulation.intruders.api.impl.Room;
-import pl.edu.agh.simulation.intruders.model.Node;
-import pl.edu.agh.simulation.intruders.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.model.Building;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.intruders.model.Robot;
+import pl.edu.agh.simulation.intruders.model.Room;
+import pl.edu.agh.simulation.intruders.roson.model.Node;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
 
 public class Converter {
     private RosonBuilding rosonBuilding;

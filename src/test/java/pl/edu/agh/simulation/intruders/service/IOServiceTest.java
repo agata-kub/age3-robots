@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import pl.edu.agh.simulation.intruders.Main;
-import pl.edu.agh.simulation.intruders.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
 
 public class IOServiceTest {
 	

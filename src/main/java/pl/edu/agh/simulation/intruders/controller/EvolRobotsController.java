@@ -1,4 +1,4 @@
-package pl.edu.agh.simulation.intruders;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -6,12 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import pl.edu.agh.simulation.intruders.api.IConfig;
-import pl.edu.agh.simulation.intruders.api.impl.DoorEdge;
-import pl.edu.agh.simulation.intruders.api.impl.DoorNode;
-import pl.edu.agh.simulation.intruders.api.impl.Robot;
-import pl.edu.agh.simulation.intruders.api.impl.Room;
-import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.intruders.model.Robot;
+import pl.edu.agh.simulation.intruders.model.Room;
 import pl.edu.agh.simulation.util.Commons;
 
 public class EvolRobotsController implements RobotsController {

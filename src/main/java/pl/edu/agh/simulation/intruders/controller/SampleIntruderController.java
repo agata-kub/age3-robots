@@ -1,10 +1,11 @@
-package pl.edu.agh.simulation.intruders.api.impl;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
 
 public class SampleIntruderController implements IntruderController {
 	

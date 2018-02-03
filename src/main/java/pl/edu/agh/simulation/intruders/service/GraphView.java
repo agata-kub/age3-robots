@@ -6,9 +6,9 @@ import org.graphstream.graph.implementations.MultiGraph;
 import org.graphstream.stream.file.FileSinkImages;
 import org.graphstream.ui.view.Viewer;
 
-import pl.edu.agh.simulation.intruders.model.Edge;
-import pl.edu.agh.simulation.intruders.model.Node;
-import pl.edu.agh.simulation.intruders.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.roson.model.Edge;
+import pl.edu.agh.simulation.intruders.roson.model.Node;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
 import pl.edu.agh.simulation.intruders.service.utils.ColorUtils;
 
 import java.io.IOException;

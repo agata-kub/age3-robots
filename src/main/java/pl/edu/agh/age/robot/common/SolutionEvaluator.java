@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import pl.edu.agh.age.compute.stream.problem.EvaluatorCounter;
-import pl.edu.agh.simulation.intruders.EvolRobotsController;
 import pl.edu.agh.simulation.intruders.Simulator;
-import pl.edu.agh.simulation.intruders.api.IConfig;
-import pl.edu.agh.simulation.intruders.api.impl.Building;
-import pl.edu.agh.simulation.intruders.api.impl.SampleConfig;
-import pl.edu.agh.simulation.intruders.api.impl.SampleIntruderController;
-import pl.edu.agh.simulation.intruders.api.intruder.IntruderController;
-import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
+import pl.edu.agh.simulation.intruders.controller.EvolRobotsController;
+import pl.edu.agh.simulation.intruders.controller.IConfig;
+import pl.edu.agh.simulation.intruders.controller.IntruderController;
+import pl.edu.agh.simulation.intruders.controller.RobotsController;
+import pl.edu.agh.simulation.intruders.controller.SampleConfig;
+import pl.edu.agh.simulation.intruders.controller.SampleIntruderController;
+import pl.edu.agh.simulation.intruders.model.Building;
 import pl.edu.agh.simulation.measure.IMeasurer;
 import pl.edu.agh.simulation.measure.SimpleMeasurer;
 

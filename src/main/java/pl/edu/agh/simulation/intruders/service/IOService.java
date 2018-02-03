@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import pl.edu.agh.simulation.intruders.model.*;
+import pl.edu.agh.simulation.intruders.roson.model.Edge;
+import pl.edu.agh.simulation.intruders.roson.model.Gate;
+import pl.edu.agh.simulation.intruders.roson.model.Node;
+import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
+import pl.edu.agh.simulation.intruders.roson.model.Space;
 
 import java.io.File;
 import java.io.IOException;

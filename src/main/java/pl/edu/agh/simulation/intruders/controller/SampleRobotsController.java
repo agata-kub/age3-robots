@@ -1,4 +1,4 @@
-package pl.edu.agh.simulation.intruders.api.impl;
+package pl.edu.agh.simulation.intruders.controller;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 
-import pl.edu.agh.simulation.intruders.api.IConfig;
-import pl.edu.agh.simulation.intruders.api.robots.RobotsController;
+import pl.edu.agh.simulation.intruders.model.DoorEdge;
+import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.intruders.model.Robot;
+import pl.edu.agh.simulation.intruders.model.Room;
 
 public class SampleRobotsController implements RobotsController {
 

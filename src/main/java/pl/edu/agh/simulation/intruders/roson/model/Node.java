@@ -1,4 +1,4 @@
-package pl.edu.agh.simulation.intruders.model;
+package pl.edu.agh.simulation.intruders.roson.model;
 
 import java.util.*;
 
