@@ -24,6 +24,10 @@ public class Node {
     public void setIncidentEdges(List<Edge> incidentEdges) {
         this.incidentEdges = incidentEdges;
     }
+    
+    public void addIncidentEdge(Edge edge) {
+    	this.incidentEdges.add(edge);
+    }
 
     public Set<Node> getIncidentNodes() {
         return incidentNodes;
@@ -31,6 +35,10 @@ public class Node {
 
     public void setIncidentNodes(Set<Node> incidentNodes) {
         this.incidentNodes = incidentNodes;
+    }
+    
+    public void addIncidentNode(Node node) {
+    	this.incidentNodes.add(node);
     }
 
     public String getNodeId() {
@@ -78,7 +86,7 @@ public class Node {
     }
 
     public void isIntruderThere(boolean isIntruderThere) {
-        isIntruderThere = isIntruderThere;
+        this.isIntruderThere = isIntruderThere;
     }
 
     public boolean deleteEdge(String from, String to) {

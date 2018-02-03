@@ -29,8 +29,8 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<context:annotation-config/>
 
 	<!-- Define a timed stop condition that fires after desired step count on any workplace -->
-	<bean id="stop-condition" class="pl.edu.agh.age.compute.ea.StepCountStopCondition">
-		<constructor-arg value="${steps}" type="int"/>
+	<bean id="stop-condition" class="pl.edu.agh.age.compute.ea.TimedStopCondition">
+		<constructor-arg value="${robot.problem.stop-condition-in-seconds}" type="long"/>
 	</bean>
 
 	<bean class="pl.edu.agh.age.compute.ea.rand.JavaRandomGenerator">
