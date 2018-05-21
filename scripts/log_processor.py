@@ -2,11 +2,14 @@ import os
 import sys
 import json
 
+rootdir ='C:/Agata/agh/mgr/age/age3-ogr-labs/age3-robots/logs'
+raw = rootdir+'/raw'
+processed = rootdir+'/processed'
+
 # extract all data with X tag, and put it into outfile
 def extract_tag_data(inpath, tag):
     infile = open(inpath,'r')
-    outdir = os.path.dirname(inpath)+'/output/'
-    outfile = open(outdir+get_filename(inpath)+'_'+tag+'.csv','w')
+    outfile = open(processed+'/'+get_filename(inpath)+'_'+tag+'.csv','w')
     lines = infile.readlines()
     for line in lines:
         if line.startswith("["+tag):
@@ -21,8 +24,7 @@ def get_filename(filepath):
     
 def extract_solutions(inpath):
     infile = open(inpath,'r')
-    outdir = os.path.dirname(inpath)+'/output/'
-    outfile = open(outdir+get_filename(inpath)+'_solution.json','w')
+    outfile = open(processed+'/'+get_filename(inpath)+'_solution.json','w')
     lines = infile.readlines()
     solutions = []
     for line in lines:
@@ -35,18 +37,21 @@ def extract_solutions(inpath):
     
 
 def extract_all_tags_data(inpath):
-    extract_tag_data(inpath, 'P')
-    extract_tag_data(inpath, 'W')
+    # extract_tag_data(inpath, 'P')
+    # extract_tag_data(inpath, 'W')
     extract_tag_data(inpath, 'S')
-    extract_tag_data(inpath, 'B')
+    # extract_tag_data(inpath, 'B')
 
 def main():
-    inpath = sys.argv[1]
-    outdir = os.path.dirname(inpath)+'/output/'
-    if not os.path.exists(outdir):
-        os.makedirs(outdir)
-#    extract_all_tags_data(inpath)
-    extract_solutions(inpath)
+    if not os.path.exists(raw):
+        os.makedirs(raw)
+    if not os.path.exists(processed):
+        os.makedirs(processed)
+    for subdir, dirs, files in os.walk(raw):
+        for file in files:
+            inpath = raw+'/'+file
+            extract_all_tags_data(inpath)
+    # extract_solutions(inpath)
     
 if __name__ == "__main__":
     main()
