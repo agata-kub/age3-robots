@@ -4,23 +4,17 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import pl.edu.agh.simulation.intruders.model.DoorEdge;
 import pl.edu.agh.simulation.intruders.model.DoorNode;
 import pl.edu.agh.simulation.intruders.model.Robot;
-import pl.edu.agh.simulation.intruders.model.Room;
 import pl.edu.agh.simulation.util.Commons;
 
-public class EvolRobotsController implements RobotsController {
+public class EvolRobotsController extends AbstractRobotsController {
 	
 	Map<String,List<String>> nametoRoutes;
 	
 	Map<String,Integer> nametoIndex;
-	
-	private List<DoorNode> doorNodes;
-	
-	private List<Room> rooms;
 	
 	private int routesCount;
 	
@@ -31,12 +25,6 @@ public class EvolRobotsController implements RobotsController {
 			nametoIndex.put(name, 0);
 		}
 		this.routesCount = routesCount;
-	}
-
-	@Override
-	public void init(List<DoorNode> doorNodes, List<Room> rooms) {
-		this.doorNodes = doorNodes;
-		this.rooms = rooms;
 	}
 
 	@Override
@@ -79,24 +67,4 @@ public class EvolRobotsController implements RobotsController {
 			}
 		}
 	}
-
-	@Override
-	public void reduceProbabilities(IConfig config) {
-		for (Room room : rooms) {
-//			System.out.println(room);
-			for (DoorNode node : room.getDoorNodes()) {
-				for (Robot robot : node.getRobots()) {
-					for (DoorNode nodeToUpdate : room.getDoorNodes()) {
-						for (DoorEdge edge : nodeToUpdate.getEdges()) {
-							Queue<Float> newIntruderProb = new LinkedList<>();
-							edge.getIntruderQueue().forEach(prob->newIntruderProb.add(config.getNewProbability(prob, robot)));
-							edge.setIntrudersQueue(newIntruderProb);
-						}
-						nodeToUpdate.setProbability(config.getNewProbability(nodeToUpdate.getProbability(), robot));
-					}
-				}
-			}
-		}
-	}
-
 }

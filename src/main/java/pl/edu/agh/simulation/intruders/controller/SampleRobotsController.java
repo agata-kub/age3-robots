@@ -5,25 +5,13 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Queue;
 
 import pl.edu.agh.simulation.intruders.model.DoorEdge;
 import pl.edu.agh.simulation.intruders.model.DoorNode;
 import pl.edu.agh.simulation.intruders.model.Robot;
-import pl.edu.agh.simulation.intruders.model.Room;
 
-public class SampleRobotsController implements RobotsController {
-
-	private List<DoorNode> doorNodes;
+public class SampleRobotsController extends AbstractRobotsController {
 	
-	private List<Room> rooms;
-
-	@Override
-	public void init(List<DoorNode> doorNodes, List<Room> rooms) {
-		this.doorNodes = doorNodes;
-		this.rooms = rooms;
-	}
-
 	@Override
 	public void update() {
 		Map<DoorNode, List<Robot>> robotsOnTheOtherSide = new HashMap<>();
@@ -63,25 +51,6 @@ public class SampleRobotsController implements RobotsController {
 		// update other side
 		for (DoorNode node : robotsOnTheOtherSide.keySet()) {
 			node.setRobotsFromTheOtherSide(robotsOnTheOtherSide.get(node));
-		}
-	}
-
-	@Override
-	public void reduceProbabilities(IConfig config) {
-		for (Room room : rooms) {
-//			System.out.println(room);
-			for (DoorNode node : room.getDoorNodes()) {
-				for (Robot robot : node.getRobots()) {
-					for (DoorNode nodeToUpdate : room.getDoorNodes()) {
-						for (DoorEdge edge : nodeToUpdate.getEdges()) {
-							Queue<Float> newIntruderProb = new LinkedList<>();
-							edge.getIntruderQueue().forEach(prob->newIntruderProb.add(config.getNewProbability(prob, robot)));
-							edge.setIntrudersQueue(newIntruderProb);
-						}
-						nodeToUpdate.setProbability(config.getNewProbability(nodeToUpdate.getProbability(), robot));
-					}
-				}
-			}
 		}
 	}
 }
