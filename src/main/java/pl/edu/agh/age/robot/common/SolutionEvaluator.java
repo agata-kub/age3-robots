@@ -48,7 +48,7 @@ public class SolutionEvaluator {
 		if (evaluatorCounter != null) {
 			evaluatorCounter.increment();
 		}
-		return measurer.getFinalValue()*Math.pow(10, 5);
+		return measurer.getFinalValue()*Math.pow(10, 10);
 	}
 
 }

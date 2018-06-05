@@ -53,4 +53,10 @@ public class SampleRobotsController extends AbstractRobotsController {
 			node.setRobotsFromTheOtherSide(robotsOnTheOtherSide.get(node));
 		}
 	}
+
+	@Override
+	protected Map<String, List<Robot>> assignRoutesToRobots(DoorNode node, List<Robot> robotsByTheDoor) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
