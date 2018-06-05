@@ -3,7 +3,7 @@ package pl.edu.agh.simulation.intruders.roson.model;
 import java.util.*;
 
 public class Node {
-    private final static float DEFAULT_PROBABILITY = 0.1f;
+    private final static float DEFAULT_PROBABILITY = 0f;
     private String nodeId;
     private List<Edge> incidentEdges = new ArrayList<>();
     private Set<Node> incidentNodes = new HashSet<>();

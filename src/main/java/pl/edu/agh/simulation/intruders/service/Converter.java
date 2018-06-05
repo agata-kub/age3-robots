@@ -11,12 +11,12 @@ import java.util.Queue;
 import java.util.Set;
 import java.util.function.Function;
 
-import ch.qos.logback.classic.net.SyslogAppender;
 import pl.edu.agh.simulation.intruders.model.Building;
 import pl.edu.agh.simulation.intruders.model.DoorEdge;
 import pl.edu.agh.simulation.intruders.model.DoorNode;
 import pl.edu.agh.simulation.intruders.model.Robot;
 import pl.edu.agh.simulation.intruders.model.Room;
+import pl.edu.agh.simulation.intruders.roson.model.Edge;
 import pl.edu.agh.simulation.intruders.roson.model.Node;
 import pl.edu.agh.simulation.intruders.roson.model.RosonBuilding;
 
@@ -40,40 +40,38 @@ public class Converter {
         List<DoorNode> doorNodes = new LinkedList<>();
         Map<String, DoorNode> doors = new HashMap<>();
         List<Room> rooms = new LinkedList<>();
-        building.getEdges().stream()
-                .filter(edge -> building.isGate(edge.getNodeFromId()) && building.isGate(edge.getNodeToId()) && !doors
-                        .containsKey(edge.getNodeFromId()) && !doors.containsKey(edge.getNodeToId()))
-                .forEach(edge -> {
-
-            DoorNode start = new DoorNode();
-            DoorNode end = new DoorNode();
-            DoorEdge startEnd = new DoorEdge(start, end);
-            DoorEdge endStart = new DoorEdge(end, start);
-
-            startEnd.setLength((int) (edge.getCost() * 10));
-            endStart.setLength((int) (edge.getCost() * 10));
-            startEnd.setDestination(end);
-            startEnd.setSource(start);
-            endStart.setDestination(start);
-            endStart.setSource(end);
-
-            start.addEdge(startEnd);
-            start.addEdge(endStart);
-            end.addEdge(startEnd);
-            end.addEdge(endStart);
-
-            startEnd.setIntrudersQueue(generateQueue(startEnd.getLength()));
-            endStart.setIntrudersQueue(generateQueue(endStart.getLength()));
-
-            start.setName(edge.getNodeFromId());
-            start.setProbability(building.getNode(edge.getNodeFromId()).getProbability());
-            end.setName(edge.getNodeToId());
-            end.setProbability(building.getNode(edge.getNodeToId()).getProbability());
-            end.setTheOtherSide(start);
-            start.setTheOtherSide(end);
-            doors.put(edge.getNodeFromId(), start);
-            doors.put(edge.getNodeToId(), end);
-        });
+        for (Edge edge : building.getEdges()) {
+            if (building.isGate(edge.getNodeFromId()) && building.isGate(edge.getNodeToId()) && !(doors.containsKey(edge.getNodeFromId()) && !doors.containsKey(edge.getNodeToId()))) {
+            	DoorNode start = new DoorNode();
+	            DoorNode end = new DoorNode();
+	            DoorEdge startEnd = new DoorEdge(start, end);
+	            DoorEdge endStart = new DoorEdge(end, start);
+	
+	            startEnd.setLength((int) (edge.getCost() * 10));
+	            endStart.setLength((int) (edge.getCost() * 10));
+	            startEnd.setDestination(end);
+	            startEnd.setSource(start);
+	            endStart.setDestination(start);
+	            endStart.setSource(end);
+	
+	            start.addEdge(startEnd);
+	            start.addEdge(endStart);
+	            end.addEdge(startEnd);
+	            end.addEdge(endStart);
+	
+	            startEnd.setIntrudersQueue(generateQueue(startEnd.getLength()));
+	            endStart.setIntrudersQueue(generateQueue(endStart.getLength()));
+	
+	            start.setName(edge.getNodeFromId());
+	            start.setProbability(building.getNode(edge.getNodeFromId()).getProbability());
+	            end.setName(edge.getNodeToId());
+	            end.setProbability(building.getNode(edge.getNodeToId()).getProbability());
+	            end.setTheOtherSide(start);
+	            start.setTheOtherSide(end);
+	            doors.put(edge.getNodeFromId(), start);
+	            doors.put(edge.getNodeToId(), end);
+            }
+        }
 
         building.getSpaces().values().stream().forEach(space -> {
             Room room = new Room();
