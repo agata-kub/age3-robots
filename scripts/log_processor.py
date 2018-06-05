@@ -41,6 +41,14 @@ def extract_all_tags_data(inpath):
     # extract_tag_data(inpath, 'W')
     extract_tag_data(inpath, 'S')
     # extract_tag_data(inpath, 'B')
+    
+def join_files_horizontally(indir):
+    outfile = open(indir+'/aggregated.csv', 'w')
+    for subdir, dirs, files in os.walk(indir):
+        for file in files:
+            inpath = indir+'/'+file
+    outfile.close()
+            
 
 def main():
     if not os.path.exists(raw):
