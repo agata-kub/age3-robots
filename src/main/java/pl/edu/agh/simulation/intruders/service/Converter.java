@@ -77,7 +77,10 @@ public class Converter {
             Room room = new Room();
             // assing all doorNodes to corresponding rooms
             space.getIncidentNodes().stream().filter(n -> building.isGate(n.getNodeId())).forEach(n -> {
-                if (doors.get(n.getNodeId()) != null) room.addNode(doors.get(n.getNodeId()));
+                if (doors.get(n.getNodeId()) != null) {
+                	room.addNode(doors.get(n.getNodeId()));
+                	doors.get(n.getNodeId()).setRoom(room);
+                }
             });
             // link all doorNodes attached to the space with each other
             space.getIncidentNodes().stream().forEach(gate -> addBidirectionalEdges(gate, space.getIncidentNodes(), doors));

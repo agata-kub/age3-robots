@@ -15,14 +15,19 @@ public class DoorNode {
 	
 	private List<Robot> robotsFromTheOtherSide;
 	
+	private Room room;
+	
 	public DoorNode() {
 		edges = new LinkedList<>();
 		robotsFromTheOtherSide = new LinkedList<>();
 	}
+	
+	public void setRoom(Room room) {
+		this.room = room;
+	}
 
 	public Room getRoom() {
-		// TODO Auto-generated method stub
-		return null;
+		return room;
 	}
 
 	public float getProbability() {
@@ -44,6 +49,16 @@ public class DoorNode {
 		}
 		robots.addAll(robotsFromTheOtherSide);
 		return robots.toArray(new Robot[robots.size()]);
+	}
+	
+	public List<DoorNode> getNeighbors() {
+		List<DoorNode> neighbors = new LinkedList<>();
+		for (DoorEdge edge : getEdges()) {
+			if (edge.getSource().equals(this)) {
+				neighbors.add(edge.getDestination());
+			}
+		}
+		return neighbors;
 	}
 
 	public DoorNode getTheOtherSide() {

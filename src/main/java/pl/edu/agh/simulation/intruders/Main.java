@@ -9,6 +9,7 @@ import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import pl.edu.agh.simulation.intruders.controller.BfsRobotsController;
 import pl.edu.agh.simulation.intruders.controller.IConfig;
 import pl.edu.agh.simulation.intruders.controller.IntruderController;
 import pl.edu.agh.simulation.intruders.controller.RobotsController;
@@ -44,21 +45,21 @@ public class Main {
 		String path = cmd.getOptionValue("file");
 		File file;
 		if (path == null) {
-			file = new File(Main.class.getClassLoader().getResource("roson/single_cases/sample_3.roson").getFile());
+			file = new File(Main.class.getClassLoader().getResource("roson/single_cases/sample_1.roson").getFile());
 		} else {
 			file = new File(Main.class.getClassLoader().getResource(path).getFile());
 		}
 		String times = cmd.getOptionValue("times");
 		int timeUnits;
 		if (times == null){
-			timeUnits = 15;
+			timeUnits = 30;
 		} else {
 			timeUnits = Integer.parseInt(times);
 		}
 		String iter = cmd.getOptionValue("iterations");
 		int iterations;
 		if (iter == null){
-			iterations = 5;
+			iterations = 1;
 		} else {
 			iterations = Integer.parseInt(iter);
 		}
@@ -86,7 +87,7 @@ public class Main {
 		} else {
 			Building building = converter.rosonToSimulation();
 			IntruderController ic = new SampleIntruderController();
-			RobotsController rc = new SampleRobotsController();
+			RobotsController rc = new BfsRobotsController();
 			IConfig config = new SampleConfig();
 			Measurer measurer = new Measurer(verbosity, cmd);
 			Simulator s;
