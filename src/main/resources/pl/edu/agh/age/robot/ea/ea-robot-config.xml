@@ -29,9 +29,14 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 	<context:annotation-config/>
 
 	<!-- Define a timed stop condition that fires after desired step count on any workplace -->
-	<bean id="stop-condition" class="pl.edu.agh.age.compute.ea.TimedStopCondition">
-		<constructor-arg value="${robot.problem.stop-condition-in-seconds}" type="long"/>
-	</bean>
+<!-- 	<bean id="stop-condition" class="pl.edu.agh.age.compute.ea.TimedStopCondition"> -->
+<!-- 		<constructor-arg value="${robot.problem.stop-condition-in-seconds}" type="long"/> -->
+<!-- 	</bean> -->
+	
+	<bean id="stop-condition" class="pl.edu.agh.age.robot.ea.FitnessInvocationsStopCondition">
+        <constructor-arg name="counter" ref="evaluatorCounter"/>
+        <constructor-arg name="desiredFitnessInvocations" value="${robot.problem.stop-condition-in-fitness}" type="int"/>
+    </bean>
 
 	<bean class="pl.edu.agh.age.compute.ea.rand.JavaRandomGenerator">
 		<constructor-arg value="1234567890"/>
@@ -41,7 +46,12 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
     	<constructor-arg value="${robot.problem.source-path}" />
     </bean>
     
+    <bean id="evaluatorCounter" class="pl.edu.agh.age.compute.stream.problem.EvaluatorCounter"
+          factory-method="simpleCounter">
+    </bean>
+    
     <bean id="evaluator" class="pl.edu.agh.age.robot.ea.RobotEvaluator">
+    	<constructor-arg name="evaluatorCounter" ref="evaluatorCounter" />
         <constructor-arg name="iterations" value="${robot.problem.iterations-count}" />
         <constructor-arg name="timeUnits" value="${robot.problem.time-units-count}" /> 
         <constructor-arg name="routesCount" value="${robot.problem.routes-count}" />
@@ -56,6 +66,10 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 			</bean>
 		</constructor-arg>
 	</bean>
+	
+	<bean id="statistics-writer" class="pl.edu.agh.age.robot.ea.StatisticsWriter">
+		<constructor-arg ref="evaluatorCounter" />
+	</bean>
 
 	<util:list id="workplace-configurations"
 	           value-type="pl.edu.agh.age.compute.ea.configuration.WorkplaceConfiguration">
@@ -65,7 +79,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 				<bean class="pl.edu.agh.age.robot.ea.RobotStep"/>
 			</constructor-arg>
 			<constructor-arg name="afterStep">
-				<bean class="pl.edu.agh.age.compute.ea.BestSolutionAfterStepAction"/>
+				<bean class="pl.edu.agh.age.robot.ea.RobotAfterStepAction">
+					<constructor-arg ref="statistics-writer" />
+				</bean>
 			</constructor-arg>
 		</bean>
 	</util:list>
