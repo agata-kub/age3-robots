@@ -14,6 +14,7 @@ import pl.edu.agh.simulation.intruders.controller.SampleIntruderController;
 import pl.edu.agh.simulation.intruders.model.Building;
 import pl.edu.agh.simulation.measure.IMeasurer;
 import pl.edu.agh.simulation.measure.SimpleMeasurer;
+import pl.edu.agh.simulation.util.Commons;
 
 public class SolutionEvaluator {
 	
@@ -41,14 +42,13 @@ public class SolutionEvaluator {
 		IConfig config = new SampleConfig();
 		IMeasurer measurer = new SimpleMeasurer();
 		Building building = buildingProvider.getBuilding();	
-
 		Simulator simulator = new Simulator(ic, rc, config, building, null, iterations, timeUnits, null, measurer);
 		simulator.simulate();
 		
 		if (evaluatorCounter != null) {
 			evaluatorCounter.increment();
 		}
-		return measurer.getFinalValue()*Math.pow(10, 10);
+		return measurer.getFinalValue()*Commons.SCALE_FACTOR;
 	}
 
 }

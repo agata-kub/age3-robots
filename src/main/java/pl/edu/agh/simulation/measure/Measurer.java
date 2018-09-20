@@ -10,6 +10,7 @@ import org.apache.commons.cli.CommandLine;
 import pl.edu.agh.simulation.intruders.model.Building;
 import pl.edu.agh.simulation.intruders.model.DoorEdge;
 import pl.edu.agh.simulation.intruders.model.DoorNode;
+import pl.edu.agh.simulation.util.Commons;
 
 public class Measurer implements IMeasurer{
 	
@@ -70,7 +71,7 @@ public class Measurer implements IMeasurer{
 				}
 			}
 		}
-		return total;
+		return (float) (total*Commons.SCALE_FACTOR);
 	}
 
 	@Override
