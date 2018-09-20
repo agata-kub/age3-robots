@@ -1,8 +1,10 @@
 import os
+import sys
 from collections import OrderedDict
 
-rootdir ='C:/Agata/agh/mgr/age/age3-ogr-labs/age3-robots/archive/2018-08-24/sample_1-2-25-2-ea'
+rootdir = 'C:/Agata/agh/mgr/age/age3-ogr-labs/age3-robots/archive/2018-09-19/4Floors-4-100-16-time'
 # rootdir ='C:/Agata/agh/mgr/test'
+factor = 1
 raw = 'raw'
 processed = 'processed'
 interpolation = 'interpolation'
@@ -105,9 +107,10 @@ def generate_for_boxplot():
 #################################################################################
 
 # extract all data with [S] tag from all files in raw directory, then get values for fixed xs as linear interpolation and put it into separate files
-def extract_S_data_and_interpolate(start_point, step, xtype):
+def extract_S_data_and_interpolate(start_point, step, scale_factor, xtype):
     if not os.path.exists(rootdir+'/'+interpolation):
         os.makedirs(rootdir+'/'+interpolation)
+    min_final_x_value = -1
     for subdir, dirs, files in os.walk(rootdir+'/'+raw):
         for file in files:
             discrete_x = start_point
@@ -117,8 +120,10 @@ def extract_S_data_and_interpolate(start_point, step, xtype):
             outfile.write("EVALUATION_COUNTER,CURRENT_BEST_FITNESS\n")
             infile = open(rootdir+'/'+raw+'/'+file,'r')
             lines = infile.readlines()
+            final_x_value = -1
             for line in lines:
                 if line.startswith("[S]"):
+                    print("Processing next line")
                     data = line.split(';')
                     if xtype=='fitness':
                         curr_x_count = int(data[3])
@@ -132,7 +137,8 @@ def extract_S_data_and_interpolate(start_point, step, xtype):
                         curr_x_count = 'kefir'
                     curr_fitness_value = data[2]
                     if curr_x_count==discrete_x:
-                        resultline = str(curr_x_count)+','+curr_fitness_value+'\n'
+                        resultline = str(curr_x_count//scale_factor)+','+curr_fitness_value+'\n'
+                        final_x_value = curr_x_count//scale_factor
                         outfile.write(resultline)
                         discrete_x += step
                     elif curr_x_count>discrete_x:
@@ -142,16 +148,20 @@ def extract_S_data_and_interpolate(start_point, step, xtype):
                             x1=curr_x_count
                             y1=float(curr_fitness_value)
                             interpolated_fitness_value = y0+(y0-y1)*(discrete_x-x0)/(x0-x1)
-                            resultline = str(discrete_x)+','+str(interpolated_fitness_value)+'\n'
+                            resultline = str(discrete_x//scale_factor)+','+str(interpolated_fitness_value)+'\n'
+                            final_x_value = discrete_x//scale_factor
                             outfile.write(resultline)
                             discrete_x += step
                     left = (curr_x_count,float(curr_fitness_value))
             infile.close()
             outfile.close()
+            if min_final_x_value==-1 or final_x_value<min_final_x_value:
+                min_final_x_value = final_x_value
+    return min_final_x_value
 
 
 # accepts the files created by extract_S_data_and_interpolate(), and transformes values into min, max and average for each x
-def map_to_min_max_avg():
+def map_to_min_max_avg(x_limit):
     outdata_raw = {}
     for subdir, dirs, files in os.walk(rootdir+'/'+interpolation):
         for file in files:
@@ -172,17 +182,19 @@ def map_to_min_max_avg():
     outfile.write("EVALUATION_COUNTER,CURRENT_MIN,CURRENT_AVG,CURRENT_MAX\n")
     outdata_sorted = OrderedDict(sorted(outdata_processed.items(), key=lambda t: int(t[0])))
     for key in outdata_sorted:
-        values = outdata_sorted[key]
-        resultline = key+','+str(values[0])+','+str(values[1])+','+str(values[2])+"\n"
-        outfile.write(resultline)
+        if int(key)<=x_limit:
+            values = outdata_sorted[key]
+            resultline = key+','+str(values[0])+','+str(values[1])+','+str(values[2])+"\n"
+            outfile.write(resultline)
     outfile.close()
 
 def main():
-	# extract_S_data()
-	# extract_S_data_and_snap_fitness()
-	# map_to_avg()
-	extract_S_data_and_interpolate(700,100,'fitness')
-	# extract_S_data_and_interpolate(-1,10000000,'time')
-	map_to_min_max_avg()
+    # extract_S_data()
+    # extract_S_data_and_snap_fitness()
+    # map_to_avg()
+    # extract_S_data_and_interpolate(200*factor,100*factor,factor,'fitness')
+    # x_limit = extract_S_data_and_interpolate(700,100,1,'fitness')
+    x_limit = extract_S_data_and_interpolate(-1,1000000000,1,'time')
+    map_to_min_max_avg(x_limit)
 
 main()
